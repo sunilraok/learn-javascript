@@ -1,0 +1,1 @@
+The code in this folder is based on the example [here](https://github.com/mdn/learning-area/tree/master/javascript/apis/client-side-storage/indexeddb/notes). 

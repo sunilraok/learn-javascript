@@ -14,11 +14,11 @@ header, footer {
   padding: 0 20px;
 }
 
-.new-note, .note-display {
+.new-todo, .todo-display {
   padding: 20px;
 }
 
-.new-note {
+.new-todo {
   background: #ddd;
 }
 
