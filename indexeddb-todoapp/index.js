@@ -101,18 +101,18 @@ window.onload = function() {
 
       // If there is still another data item to iterate through, keep running this code
       if(cursor) {
-        // Create a list item, h3, and p to put each data item inside when displaying it
+        // Create a list item, h5, and p to put each data item inside when displaying it
         // structure the HTML fragment, and append it inside the list
         const listItem = document.createElement('li');
-        const h3 = document.createElement('h3');
+        const h5 = document.createElement('h5');
         const para = document.createElement('p');
 
-        listItem.appendChild(h3);
+        listItem.appendChild(h5);
         listItem.appendChild(para);
         list.appendChild(listItem);
 
-        // Put the data from the cursor inside the h3 and para
-        h3.textContent = cursor.value.title;
+        // Put the data from the cursor inside the h4 and para
+        h5.textContent = cursor.value.title;
         para.textContent = cursor.value.body;
 
         // Store the ID of the data item inside an attribute on the listItem, so we know
