@@ -7,18 +7,18 @@ const submitBtn = document.querySelector('form button');
 // Create an instance of a db object for us to store the open database in
 let db;
 
-window.onload = function() {
+window.onload = function () {
   // Open our database; it is created if it doesn't already exist
   // (see onupgradeneeded below)
   let request = window.indexedDB.open('todos_db', 1);
 
   // onerror handler signifies that the database didn't open successfully
-  request.onerror = function() {
+  request.onerror = function () {
     console.log('Database failed to open');
   };
 
   // onsuccess handler signifies that the database opened successfully
-  request.onsuccess = function() {
+  request.onsuccess = function () {
     console.log('Database opened succesfully');
 
     // Store the opened database object in the db variable. This is used a lot below
@@ -29,14 +29,14 @@ window.onload = function() {
   };
 
   // Setup the database tables if this has not already been done
-  request.onupgradeneeded = function(e) {
+  request.onupgradeneeded = function (e) {
 
     // Grab a reference to the opened database
     let db = e.target.result;
 
     // Create an objectStore to store our todos in (basically like a single table)
     // including a auto-incrementing key
-    let objectStore = db.createObjectStore('todos_os', { keyPath: 'id', autoIncrement:true });
+    let objectStore = db.createObjectStore('todos_os', { keyPath: 'id', autoIncrement: true });
 
     // Define what data items the objectStore will contain
     objectStore.createIndex('body', 'body', { unique: false });
@@ -63,20 +63,20 @@ window.onload = function() {
 
     // Make a request to add our newItem object to the object store
     var request = objectStore.add(newItem);
-    request.onsuccess = function() {
+    request.onsuccess = function () {
       // Clear the form, ready for adding the next entry
       bodyInput.value = '';
     };
 
     // Report on the success of the transaction completing, when everything is done
-    transaction.oncomplete = function() {
+    transaction.oncomplete = function () {
       console.log('Transaction completed: database modification finished.');
 
       // update the display of data to show the newly added item, by running displayData() again.
       displayData();
     };
 
-    transaction.onerror = function() {
+    transaction.onerror = function () {
       console.log('Transaction not opened due to error');
     };
   }
@@ -92,17 +92,17 @@ window.onload = function() {
     // Open our object store and then get a cursor - which iterates through all the
     // different data items in the store
     let objectStore = db.transaction('todos_os').objectStore('todos_os');
-    objectStore.openCursor().onsuccess = function(e) {
+    objectStore.openCursor().onsuccess = function (e) {
       // Get a reference to the cursor
       let cursor = e.target.result;
 
       // If there is still another data item to iterate through, keep running this code
-      if(cursor) {
+      if (cursor) {
         // Create a list item, and p to put each data item inside when displaying it
         // structure the HTML fragment, and append it inside the list
         const listItem = document.createElement('li');
         const para = document.createElement('div');
-        para.className = 'todo-item column col-8';
+        para.className = 'todo-item';
 
         listItem.appendChild(para);
         list.appendChild(listItem);
@@ -116,7 +116,7 @@ window.onload = function() {
 
         // Create a button and place it inside each listItem
         const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn btn-primary column col-1';
+        deleteBtn.className = 'btn btn-primary';
         deleteBtn.textContent = 'Delete';
         listItem.appendChild(deleteBtn);
 
@@ -128,7 +128,7 @@ window.onload = function() {
         cursor.continue();
       } else {
         // Again, if list item is empty, display a 'No todos stored' message
-        if(!list.firstChild) {
+        if (!list.firstChild) {
           const listItem = document.createElement('li');
           listItem.textContent = 'No todos stored.'
           list.appendChild(listItem);
@@ -152,14 +152,14 @@ window.onload = function() {
     let request = objectStore.delete(todoId);
 
     // report that the data item has been deleted
-    transaction.oncomplete = function() {
+    transaction.oncomplete = function () {
       // delete the parent of the button
       // which is the list item, so it is no longer displayed
       e.target.parentNode.parentNode.removeChild(e.target.parentNode);
       console.log('Todo ' + todoId + ' deleted.');
 
       // Again, if list item is empty, display a 'No todos stored' message
-      if(!list.firstChild) {
+      if (!list.firstChild) {
         const listItem = document.createElement('li');
         listItem.textContent = 'No todos stored.';
         list.appendChild(listItem);

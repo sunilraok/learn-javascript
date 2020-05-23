@@ -19,7 +19,7 @@ header {
 }
 
 .new-todo {
-  background: #ddd;
+  background: rgb(247, 248, 249);
 }
 
 .todo-item {
@@ -37,8 +37,6 @@ ul {
 
 li {
   display: flex;
-  justify-content: space-between;
-  max-width: 800px;
   margin: 0 5px;
 }
 
