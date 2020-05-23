@@ -7,7 +7,7 @@ body {
   max-width: 800px;
 }
 
-header, footer {
+header {
   background-color: green;
   color: white;
   line-height: 100px;
