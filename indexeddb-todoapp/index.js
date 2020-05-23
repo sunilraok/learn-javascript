@@ -1,6 +1,5 @@
 // Create needed constants
 const list = document.querySelector('ul');
-const titleInput = document.querySelector('#title');
 const bodyInput = document.querySelector('#body');
 const form = document.querySelector('form');
 const submitBtn = document.querySelector('form button');
@@ -40,7 +39,6 @@ window.onload = function() {
     let objectStore = db.createObjectStore('todos_os', { keyPath: 'id', autoIncrement:true });
 
     // Define what data items the objectStore will contain
-    objectStore.createIndex('title', 'title', { unique: false });
     objectStore.createIndex('body', 'body', { unique: false });
 
     console.log('Database setup complete');
@@ -55,7 +53,7 @@ window.onload = function() {
     e.preventDefault();
 
     // grab the values entered into the form fields and store them in an object ready for being inserted into the DB
-    let newItem = { title: titleInput.value, body: bodyInput.value };
+    let newItem = { body: bodyInput.value };
 
     // open a read/write db transaction, ready for adding the data
     let transaction = db.transaction(['todos_os'], 'readwrite');
@@ -67,7 +65,6 @@ window.onload = function() {
     var request = objectStore.add(newItem);
     request.onsuccess = function() {
       // Clear the form, ready for adding the next entry
-      titleInput.value = '';
       bodyInput.value = '';
     };
 
@@ -101,18 +98,16 @@ window.onload = function() {
 
       // If there is still another data item to iterate through, keep running this code
       if(cursor) {
-        // Create a list item, h5, and p to put each data item inside when displaying it
+        // Create a list item, and p to put each data item inside when displaying it
         // structure the HTML fragment, and append it inside the list
         const listItem = document.createElement('li');
-        const h5 = document.createElement('h5');
-        const para = document.createElement('p');
+        const para = document.createElement('div');
+        para.className = 'todo-item column col-8';
 
-        listItem.appendChild(h5);
         listItem.appendChild(para);
         list.appendChild(listItem);
 
         // Put the data from the cursor inside the h4 and para
-        h5.textContent = cursor.value.title;
         para.textContent = cursor.value.body;
 
         // Store the ID of the data item inside an attribute on the listItem, so we know
@@ -121,9 +116,9 @@ window.onload = function() {
 
         // Create a button and place it inside each listItem
         const deleteBtn = document.createElement('button');
-        deleteBtn.className = 'btn';
-        listItem.appendChild(deleteBtn);
+        deleteBtn.className = 'btn btn-primary column col-1';
         deleteBtn.textContent = 'Delete';
+        listItem.appendChild(deleteBtn);
 
         // Set an event handler so that when the button is clicked, the deleteItem()
         // function is run

@@ -14,20 +14,16 @@
 
     <main>
       <section class="new-todo">
-        <h2>Add a todo</h2>
-        <form>
-          <div>
-            <label for="title">Note title</label>
-            <input id="title" type="text" required>
-          </div>
-          <div>
-            <label for="body">Note text</label>
-            <input id="body" type="text" required>
-          </div>
-          <div>
-            <button class="btn btn-primary">Create new todo</button>
-          </div>
-        </form>
+        <div class="container">
+          <form class="columns">
+            <div class="column col-8">
+              <input id="body" type="text" placeholder="Add a todo..." required>
+            </div>
+            <div class="column col-1">
+              <button class="btn btn-primary">Create</button>
+            </div>
+          </form>
+        </div>
       </section>
       <section class="todo-display">
         <ul>
