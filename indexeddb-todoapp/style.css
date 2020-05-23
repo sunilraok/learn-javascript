@@ -30,6 +30,13 @@ ul {
   list-style-type: none;
 }
 
+li {
+  display: flex;
+  justify-content: space-between;
+  max-width: 512px;
+  margin: 0 5px;
+}
+
 div {
   margin-bottom: 10px;
 }
